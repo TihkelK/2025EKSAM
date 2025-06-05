@@ -1,0 +1,4 @@
+[webservers]
+AlmaServer ansible_host="10.0.90.15"
+[dbservers]
+DebianServer ansible_host="10.0.90.10"

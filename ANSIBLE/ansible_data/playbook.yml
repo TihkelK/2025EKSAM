@@ -1,0 +1,34 @@
+---
+    - name: Kontrolli ja paigalda Apache webiserver webservers grupis
+      hosts: webservers
+      become: true
+      tasks:
+        - name: Kontrolli kas Apache (httpd) on paigaldatud (dnf)
+          dnf:
+            name: httpd
+            state: present
+    
+        - name: Käivita ja luba Apache teenus
+          systemd:
+            name: httpd
+            state: started
+            enabled: true
+    
+    - name: Kontrolli ja paigalda MariaDB dbservers grupis
+      hosts: dbservers
+      become: true
+      tasks:
+        - name: Paigalda MariaDB Debian/Ubuntu süsteemides (apt)
+          apt:
+            name: mariadb-server
+            state: present
+            update_cache: yes
+          when: ansible_facts['pkg_mgr'] == "apt"
+    
+        - name: Käivita ja luba MariaDB teenus
+          systemd:
+            name: mariadb
+            state: started
+            enabled: true
+          when: ansible_facts['pkg_mgr'] == "apt"
+    
