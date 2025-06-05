@@ -1,5 +1,5 @@
 #Faili Importimine
-$kasutajad = Import-Csv C:\Users\Administrator\Downloads
+$kasutajad = Import-Csv C:\Users\Administrator\Downloads\kasutajad.csv
 
 #Write-Output $kasutajad
 
