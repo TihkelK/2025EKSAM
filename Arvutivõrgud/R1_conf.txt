@@ -1,0 +1,128 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R1
+!
+!
+!
+enable secret 5 $1$mERr$m1slDCHhMX9jPOb98xavu.
+!
+!
+ip dhcp excluded-address 192.168.5.1 192.168.5.10
+ip dhcp excluded-address 192.168.5.65 192.168.5.74
+ip dhcp excluded-address 192.168.6.1 192.168.6.10
+!
+ip dhcp pool LAN1
+ network 192.168.6.0 255.255.255.128
+ default-router 192.168.6.1
+ dns-server 1.1.1.1
+ domain-name too.net
+ip dhcp pool LAN2
+ network 192.168.5.0 255.255.255.128
+ default-router 192.168.5.1
+ dns-server 1.1.1.1
+ domain-name too.net
+ip dhcp pool LAN
+ network 192.168.5.0 255.255.255.128
+ default-router 192.168.5.1
+ dns-server 1.1.1.1
+ domain-name too.net
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username admin password 0 Passw0rd!
+!
+!
+license udi pid CISCO1941/K9 sn FTX1524K53T-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name too.net
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ ip address 10.0.0.2 255.255.255.252
+ mtu 1476
+ tunnel source Serial0/1/0
+ tunnel destination 194.25.10.42
+!
+!
+interface GigabitEthernet0/0
+ ip address 192.168.5.1 255.255.255.128
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ no ip address
+!
+interface Serial0/0/1
+ no ip address
+ clock rate 2000000
+!
+interface Serial0/1/0
+ ip address 201.10.23.1 255.255.255.252
+ clock rate 2000000
+!
+interface Serial0/1/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+banner motd ^C
+Autoriseerimata sisselogimine on keelatud!
+^C
+!
+!
+!
+!
+line con 0
+ password Passw0rd!
+ login local
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+!
+end
